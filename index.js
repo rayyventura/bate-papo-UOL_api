@@ -199,7 +199,7 @@ async function  removeParticipants(){
       
    
 }
-setInterval(removeParticipants,1000);
+setInterval(removeParticipants,15000);
 
 app.listen(5000,()=>{
     console.log("Initiated Server...");

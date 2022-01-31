@@ -180,7 +180,6 @@ async function  removeParticipants(){
         const collectionParticipants = dbParticipants.collection("participant");
         const lastStatus = await collectionParticipants.find({}).toArray();
         const downtime = lastStatus.filter(status => ((Date.now() - status.lastStatus)/1000)>=15);
-        console.log(downtime);
         downtime.forEach(async participant => {
              await collectionParticipants.deleteOne({id:participant.id});
              await collectionMessages.insertOne({
@@ -189,7 +188,8 @@ async function  removeParticipants(){
                 text: 'sai da sala...',
                 type: 'status',
                 time: dayjs().locale('pt-br').format('hh:mm:ss')
-            })
+            });
+        
 
         })
         return(lastStatus);
@@ -199,7 +199,7 @@ async function  removeParticipants(){
       
    
 }
-setTimeout(removeParticipants,1000);
+setInterval(removeParticipants,1000);
 
 app.listen(5000,()=>{
     console.log("Initiated Server...");
